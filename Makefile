@@ -12,10 +12,11 @@ all: man lvm-plugin-build
 
 .PHONY: man
 man:
-	go-md2man -in man/docker-lvm-plugin.8.md -out docker-lvm-plugin.8
+	if (go-md2man --version >/dev/null 2>&1); then go-md2man -in man/docker-lvm-plugin.8.md -out docker-lvm-plugin.8; fi
 
 .PHONY: lvm-plugin-build
 lvm-plugin-build: main.go driver.go
+	$(GOLANG) get -v
 	$(GOLANG) build -o $(BINARY) .
 
 .PHONY: install
